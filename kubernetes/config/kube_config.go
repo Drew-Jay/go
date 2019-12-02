@@ -93,6 +93,16 @@ func LoadKubeConfig() (*client.Configuration, error) {
 	return loader.LoadAndSet()
 }
 
+func LoadKubeConfigByGiven(confPath string) (*client.Configuration, error) {
+	kubeConfigFilename := confPath
+	loader, err := NewKubeConfigLoaderFromYAMLFile(kubeConfigFilename, false)
+	if err != nil {
+		return nil, err
+	}
+
+	return loader.LoadAndSet()
+}
+
 // NewKubeConfigLoaderFromYAMLFile creates a new KubeConfigLoader with a parsed
 // config yaml file.
 func NewKubeConfigLoaderFromYAMLFile(filename string, skipConfigPersist bool) (*KubeConfigLoader, error) {
